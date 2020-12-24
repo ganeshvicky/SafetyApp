@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddContact"
+    android:paddingBottom="12dp">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/contactlist"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/mainlist"
+        android:layout_margin="5dp"/>
+
+    <RelativeLayout
+        android:id="@+id/mainlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="15dp"
+            android:id="@+id/add"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:layout_toEndOf="@+id/add"
+            android:layout_marginHorizontal="15dp"
+            android:id="@+id/remove"
+            android:layout_centerVertical="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:layout_toEndOf="@+id/remove"
+            android:layout_marginHorizontal="15dp"
+            android:id="@+id/update"
+            android:layout_centerVertical="true"/>
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
+
+
+
+
