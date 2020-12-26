@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,15 +22,24 @@ import java.util.ArrayList;
 
 public class AddContact extends AppCompatActivity {
 
-    Button add;
+    Button add, update, remove;
     ArrayList<String> contactList = new ArrayList<>();
     ArrayAdapter<String> adapter;
     ListView layoutList;
+    int onClickPos = -1;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
+
+        db = new DatabaseHelper(this);
+
+        contactList = db.getContact();
+
+
+
         add = findViewById(R.id.add);
         layoutList = findViewById(R.id.contactlist);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 100);
@@ -44,6 +54,36 @@ public class AddContact extends AppCompatActivity {
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactList);
         layoutList.setAdapter(adapter);
+
+        layoutList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onClickPos = position;
+            }
+        });
+
+        remove = findViewById(R.id.remove);
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onClickPos!=-1){
+                    db.removeContact(contactList.get(onClickPos));
+                    contactList.remove(onClickPos);
+                    adapter.notifyDataSetChanged();
+                    onClickPos=-1;
+                }else{
+                    Toast.makeText(AddContact.this, "Select a contact to remove", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        update = findViewById(R.id.update);
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
 
     @Override
@@ -107,6 +147,7 @@ public class AddContact extends AppCompatActivity {
                     Toast.makeText(this, contactName+", "+contactNumber, Toast.LENGTH_LONG).show();
                     contactList.add(contactName+", "+contactNumber);
                     adapter.notifyDataSetChanged();
+                    db.addContact(contactName+", "+contactNumber);
                 }
                 break;
         }
