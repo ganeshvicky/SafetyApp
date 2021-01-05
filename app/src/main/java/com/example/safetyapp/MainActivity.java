@@ -27,6 +27,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        startService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SendSMS.class));
+            }
+        });
+
+        stopService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startService(new Intent(MainActivity.this, BackgroundService.class));
+            }
+        });
+
 
     }
 }
