@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String name = "name";
     private static final String phno = "phno";
 
+
     public DatabaseHelper(Context context) {
         super(context, dbName, null, db_v);
     }
